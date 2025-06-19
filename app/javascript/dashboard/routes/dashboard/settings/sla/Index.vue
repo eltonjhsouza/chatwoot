@@ -5,7 +5,6 @@ import SLAEmptyState from './components/SLAEmptyState.vue';
 import SLAHeader from './components/SLAHeader.vue';
 import SLAListItem from './components/SLAListItem.vue';
 import SLAListItemLoading from './components/SLAListItemLoading.vue';
-import SLAPaywallEnterprise from './components/SLAPaywallEnterprise.vue';
 
 import { mapGetters } from 'vuex';
 import { convertSecondsToTimeUnit } from '@chatwoot/utils';
@@ -19,7 +18,6 @@ export default {
     SLAHeader,
     SLAListItem,
     SLAListItemLoading,
-    SLAPaywallEnterprise,
   },
   data() {
     return {
@@ -31,7 +29,9 @@ export default {
   },
   computed: {
     ...mapGetters({
+      // eslint-disable-next-line vue/no-unused-properties
       isOnChatwootCloud: 'globalConfig/isOnChatwootCloud',
+      // eslint-disable-next-line vue/no-unused-properties
       isFeatureEnabledonAccount: 'accounts/isFeatureEnabledonAccount',
       records: 'sla/getSLA',
       currentUser: 'getCurrentUser',
@@ -48,7 +48,7 @@ export default {
       return ` ${this.selectedResponse.name}`;
     },
     isBehindAPaywall() {
-      return !this.isFeatureEnabledonAccount(this.accountId, 'sla');
+      return false;
     },
     isSuperAdmin() {
       return this.currentUser.type === 'SuperAdmin';
@@ -123,16 +123,7 @@ export default {
       <SLAListItemLoading v-for="ii in 2" :key="ii" class="mb-3" />
     </template>
     <template #body>
-      <SLAPaywallEnterprise
-        v-if="isBehindAPaywall"
-        :is-super-admin="isSuperAdmin"
-        :is-on-chatwoot-cloud="isOnChatwootCloud"
-        @upgrade="onClickCTA"
-      />
-      <SLAEmptyState
-        v-else-if="!records.length"
-        @primary-action="openAddPopup"
-      />
+      <SLAEmptyState v-if="!records.length" @primary-action="openAddPopup" />
       <div v-else class="flex flex-col w-full h-full gap-3">
         <SLAListItem
           v-for="sla in records"

@@ -6,6 +6,7 @@ import {
   useStoreGetters,
 } from 'dashboard/composables/store';
 import { useRoute } from 'vue-router';
+// eslint-disable-next-line no-unused-vars
 import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 
 import BackButton from 'dashboard/components/widgets/BackButton.vue';
@@ -73,7 +74,6 @@ onMounted(() =>
     :is-fetching="isFetchingAssistant || isFetching"
     :is-empty="!captainInboxes.length"
     :show-pagination-footer="false"
-    :feature-flag="FEATURE_FLAGS.CAPTAIN"
     @click="handleCreate"
   >
     <template v-if="!isFetchingAssistant" #headerTitle>

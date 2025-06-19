@@ -4,6 +4,7 @@ import SettingsLayout from '../SettingsLayout.vue';
 import BaseSettingsHeader from '../components/BaseSettingsHeader.vue';
 import CustomRoleModal from './component/CustomRoleModal.vue';
 import CustomRoleTableBody from './component/CustomRoleTableBody.vue';
+import CustomRolePaywall from './component/CustomRolePaywall.vue';
 import Button from 'dashboard/components-next/button/Button.vue';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -34,15 +35,18 @@ const deleteMessage = computed(() => {
   return ` ${activeResponse.value.name} ? `;
 });
 
-// eslint-disable-next-line no-unused-vars
 const isFeatureEnabledOnAccount = useMapGetter(
   'accounts/isFeatureEnabledonAccount'
 );
 
-// eslint-disable-next-line no-unused-vars
 const currentAccountId = useMapGetter('getCurrentAccountId');
 
-const isBehindAPaywall = computed(() => false);
+const isBehindAPaywall = computed(() => {
+  return !isFeatureEnabledOnAccount.value(
+    currentAccountId.value,
+    'custom_roles'
+  );
+});
 
 const fetchCustomRoles = async () => {
   try {
@@ -120,7 +124,7 @@ const confirmDeletion = () => {
   <SettingsLayout
     :is-loading="uiFlags.fetchingList"
     :loading-message="$t('CUSTOM_ROLE.LOADING')"
-    :no-records-found="!records.length"
+    :no-records-found="!records.length && !isBehindAPaywall"
     :no-records-message="$t('CUSTOM_ROLE.LIST.404')"
   >
     <template #header>
@@ -134,7 +138,7 @@ const confirmDeletion = () => {
           <Button
             icon="i-lucide-circle-plus"
             :label="$t('CUSTOM_ROLE.HEADER_BTN_TXT')"
-            :disabled="false"
+            :disabled="isBehindAPaywall"
             @click="openAddModal"
           />
         </template>
@@ -142,7 +146,9 @@ const confirmDeletion = () => {
     </template>
 
     <template #body>
+      <CustomRolePaywall v-if="isBehindAPaywall" />
       <table
+        v-else
         class="min-w-full overflow-x-auto divide-y divide-slate-75 dark:divide-slate-700"
       >
         <thead>

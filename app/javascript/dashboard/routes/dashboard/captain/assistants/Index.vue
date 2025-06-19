@@ -1,7 +1,6 @@
 <script setup>
 import { computed, onMounted, ref, nextTick } from 'vue';
 import { useMapGetter, useStore } from 'dashboard/composables/store';
-// eslint-disable-next-line no-unused-vars
 import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 
 import AssistantCard from 'dashboard/components-next/captain/assistant/AssistantCard.vue';
@@ -83,6 +82,7 @@ onMounted(() => store.dispatch('captainAssistants/get'));
     :show-pagination-footer="false"
     :is-fetching="isFetching"
     :is-empty="!assistants.length"
+    :feature-flag="FEATURE_FLAGS.CAPTAIN"
     @click="handleCreate"
   >
     <template #knowMore>

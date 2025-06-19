@@ -12,24 +12,7 @@
 # premium: These values get overwritten unless the user is on a premium plan
 # type: The type of the config. Default is text,  boolean is also supported
 
-# ------- Captain AI Config (for /super_admin/app_config?config=captain) ------- #
-- name: CAPTAIN_OPEN_AI_API_KEY
-  display_title: 'OpenAI API Key'
-  description: 'The API key used to authenticate requests to OpenAI services for Captain AI.'
-  locked: false
-  type: secret
-- name: CAPTAIN_OPEN_AI_MODEL
-  display_title: 'OpenAI Model'
-  description: 'The OpenAI model configured for use in Captain AI. Default: gpt-4o-mini'
-  locked: false
-- name: CAPTAIN_FIRECRAWL_API_KEY
-  display_title: 'FireCrawl API Key (optional)'
-  description: 'The FireCrawl API key for the Captain AI service'
-  locked: false
-  type: secret
-# ------- End of Captain AI Config ------- #
-
-# ------- Custom Branding Config (for /super_admin/app_config?config=custom_branding) ------- #
+# ------- Branding Related Config ------- #
 - name: INSTALLATION_NAME
   value: 'Chatwoot'
   display_title: 'Installation Name'
@@ -71,7 +54,7 @@
   display_title: 'Chatwoot Metadata'
   description: 'Display default Chatwoot metadata like favicons and upgrade warnings'
   type: boolean
-# ------- End of Custom Branding Config ------- #
+# ------- End of Branding Related Config ------- #
 
 # ------- Signup & Account Related Config ------- #
 - name: ENABLE_ACCOUNT_SIGNUP
@@ -153,6 +136,29 @@
   locked: false
   type: secret
 # End of Microsoft Email Channel Config
+
+# MARK: Captain Config
+- name: CAPTAIN_OPEN_AI_API_KEY
+  display_title: 'OpenAI API Key'
+  description: 'The API key used to authenticate requests to OpenAI services for Captain AI.'
+  locked: false
+  type: secret
+- name: CAPTAIN_OPEN_AI_MODEL
+  display_title: 'OpenAI Model'
+  description: 'The OpenAI model configured for use in Captain AI. Default: gpt-4o-mini'
+  locked: false
+- name: CAPTAIN_FIRECRAWL_API_KEY
+  display_title: 'FireCrawl API Key (optional)'
+  description: 'The FireCrawl API key for the Captain AI service'
+  locked: false
+  type: secret
+- name: CAPTAIN_CLOUD_PLAN_LIMITS
+  display_title: 'Captain Cloud Plan Limits'
+  description: 'The limits for the Captain AI service for different plans'
+  value:
+  type: code
+
+# End of Captain Config
 
 # ------- Chatwoot Internal Config for Cloud ----#
 - name: CHATWOOT_INBOX_TOKEN

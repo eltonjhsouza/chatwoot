@@ -5,7 +5,7 @@ import { useAlert } from 'dashboard/composables';
 import { useI18n } from 'vue-i18n';
 import { OnClickOutside } from '@vueuse/components';
 import { useRouter } from 'vue-router';
-import { FEATURE_FLAGS } from 'dashboard/featureFlags';
+// import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 
 import Button from 'dashboard/components-next/button/Button.vue';
 import Checkbox from 'dashboard/components-next/checkbox/Checkbox.vue';
@@ -244,7 +244,6 @@ onMounted(() => {
     :is-fetching="isFetching"
     :is-empty="!responses.length"
     :show-pagination-footer="!isFetching && !!responses.length"
-    :feature-flag="FEATURE_FLAGS.CAPTAIN"
     @update:current-page="onPageChange"
     @click="handleCreate"
   >

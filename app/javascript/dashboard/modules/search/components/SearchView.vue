@@ -105,7 +105,7 @@ const TABS_CONFIG = {
   },
   articles: {
     permissions: [...ROLES, PORTAL_PERMISSIONS],
-    featureFlag: FEATURE_FLAGS.HELP_CENTER,
+    // featureFlag: FEATURE_FLAGS.HELP_CENTER,
     count: () => mappedArticles.value.length,
   },
 };
@@ -371,7 +371,6 @@ onUnmounted(() => {
             <Policy
               v-if="isFeatureFlagEnabled(FEATURE_FLAGS.HELP_CENTER)"
               :permissions="[...ROLES, PORTAL_PERMISSIONS]"
-              :feature-flag="FEATURE_FLAGS.HELP_CENTER"
               class="flex flex-col justify-center"
             >
               <SearchResultArticlesList
